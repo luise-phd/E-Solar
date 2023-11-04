@@ -1,0 +1,95 @@
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    
+    {% block navbar_inner_wrap %}
+      <div class="navbar-inner">
+        {% block navbar_inner_content %}
+          <!-- Collapse -->
+          <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+            <!-- Nav items -->
+            {% block sidebar_items %}
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/e-solar/">
+                    <i class="fa fa-upload text-primary"></i>
+                    <span class="nav-link-text">Cargar datos</span>
+                  </a>
+                </li>            
+                <li class="nav-item">
+                  <a class="nav-link {% if 'analizar' in segment %} active {% endif %}" href="/e-solar/analizar_datos.html">
+                    <i class="fa fa-search text-green"></i>
+                    <span class="nav-link-text">Analizar datos</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if 'analisis_histo' in segment %} active {% endif %}" href="/e-solar/analisis_histo.html">
+                    <i class="ni ni-air-baloon text-blue"></i>
+                    <span class="nav-link-text">Análisis histórico</span>
+                  </a>
+                </li>
+              </ul>
+              
+              <hr class="my-3">
+              <ul class="navbar-nav">   
+                <li class="nav-item">
+                  <a class="nav-link {% if 'algoritmos' in segment %} active {% endif %}" href="/e-solar/algoritmos.html">
+                    <i class="ni ni-app text-orange"></i>
+                    <span class="nav-link-text">Algoritmos</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if 'archivos' in segment %} active {% endif %}" href="/e-solar/archivos.html">
+                    <i class="fa fa-file text-yellow"></i>
+                    <span class="nav-link-text">Archivos</span>
+                  </a>
+                </li>
+                
+              </ul>
+
+              <hr class="my-3">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link {% if 'radiacion_solar' in segment %} active {% endif %}" href="/e-solar/radiacion_solar.html">
+                    <i class="fa fa-image text-blue"></i>
+                    <span class="nav-link-text">Predicción de radiación solar en Colombia</span>
+                  </a>
+                </li>
+              </ul>
+
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link {% if 'predicciones_histo' in segment %} active {% endif %}" href="/e-solar/predicciones_histo.html">
+                    <i class="fa fa-image text-blue"></i>
+                    <span class="nav-link-text">Histórico de predicciones</span>
+                  </a>
+                </li>
+              </ul>
+
+              <hr class="my-3">
+
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link {% if 'recursos' in segment %} active {% endif %}" href="/e-solar/recursos.html">
+                    <i class="fa fa-chart-bar text-blue"></i>
+                    <span class="nav-link-text">Recursos</span>
+                  </a>
+                </li>
+              </ul>
+
+              <hr class="my-3">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">
+                    <i class="ni ni-user-run text-red"></i>
+                    <span class="nav-link-text">Cerrar sesión</span>
+                  </a>
+                </li>            
+              </ul>
+            {% endblock %}
+          </div>
+        {% endblock %}
+      </div>
+    {% endblock %}
+  </div>
+</nav>

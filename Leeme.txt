@@ -1,0 +1,85 @@
+Mejorado:
+01/12/2022: Ejecución de algoritmos mediante un diccionario y el metodo eval()
+01/12/2022: Validación de formularios con botones submit
+01/12/2022: Botones de ordenamiento eliminados en columna de operaciones y de visualización
+01/12/2022: Sobreescritura de archivos existentes
+01/12/2022: Iconos para visualizar, editar y eliminar registros en tablas
+01/12/2022: Centrar columnas en tablas
+01/12/2022: Nombres de documentos html y enlaces
+01/12/2022: Archivo requierments.txt actualizado con las librerías necesarias
+01/12/2022: Mostrar mensaje cuando se situa el cursor sobre un ícono
+02/12/2022: Repositorio del proyecto creado en GitHub
+07/12/2022: Opciones adicionar, editar y eliminar en el formulario algoritmos desactivadas
+
+Nuevo:
+01/12/2022: Leer archivos txt, csv, xls, xlsx
+01/12/2022: Seleccionar predictores y variable objetivo
+01/12/2022: Listar, visualizar, eliminar y descargar archivos
+01/12/2022: Validar eliminación de archivos, algoritmos y análisis históricos
+01/12/2022: Extraer caracteristicas de imagenes satelitales
+01/12/2022: Validación de entradas numéricas en las coordenadas
+01/12/2022: Predicción de radiación solar en cualquier lugar de Colombia
+01/12/2022: Histórico de predicciones
+07/12/2022: Validación de archivos sin contenido o con contenido no numérico
+08/12/2022: Programación multi-hilo en el procesamiento de imágenes para la predicción de radiación solar
+08/12/2022: Verificación de las coordenadas fuera de la matríz de la imágen
+13/12/2022: Construcción de la entrada de datos para el Dashboard
+14/12/2022: Adición de gráficas de líneas, columnas, barras y combinación de dos variables en una gráfica de líneas  
+15/12/2022: Adición de archivo de ejemplo en cargar datos
+15/12/2022: Adición de acción para visualizar un gráfico de líneas con la radiación solar estimada
+
+Pendiente:
+* Mapas de calor para visualizar la correlación
+* Algoritmos PySpark
+* Ajuste de hiperparametros por busqueda aleatoria: RandomizedSearchCV
+* Recordar contraseña
+
+Gestión de errores:
+* ImportError: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+  En pd.read_excel() - Instalar: pip3 install pandas openpyxl
+
+
+Observaciones
+----------------------------------------------------------
+ssh 34.130.237.2
+sudo su
+cd /home/ubuntu/dashboard
+
+http://34.130.237.2:5050/
+admin@admin.com
+root
+
+pip3 freeze > requirements2.txt
+
+Ir al sitio
+https://273d-45-5-164-216.ngrok.io
+
+screen
+python3 manage.py runserver 0.0.0.0:80&
+Ctrl+Z - Ctrl+X - Ctrl+C
+
+docker-compose up -d
+docker ps -a
+----------------------------------------------------------
+Clonar Repositorio
+----------------------------------------------------------
+git clone https://github.com/luise-phd/dashboard
+----------------------------------------------------------
+Publicar en el repo de GitHub
+----------------------------------------------------------
+git add .
+git commit -m "base de datos"
+git push origin main
+git pull origin main
+----------------------------------------------------------
+Finalizar puerto
+----------------------------------------------------------
+sudo su
+cd dashboard
+fuser -n tcp -k 80
+----------------------------------------------------------
+Finalizar todos los puerto utilizados por ngrok
+----------------------------------------------------------
+killall ngrok
+ngrok http 80
+-----------------------------

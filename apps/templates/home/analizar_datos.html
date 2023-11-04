@@ -1,0 +1,169 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Analizar datos {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card bg-default">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="text-light text-uppercase ls-1 mb-1">Analizar datos</h5>
+                  <span class="text-light">Para realizar un análisis de datos, debe seleccionar el archivo subido previamente, los predictores, la variable objetivo y el algoritmo de Machine Learning.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-default">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <form id="form" action="/e-solar/realizar_analisis/" method="POST" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <h3 class="mb-0">Seleccionar archivo</h3><br>
+                    <select class="form-control" onChange="form.submit();" name="arch_sel" id="arch_sel">
+                      <option value=""></option>
+                      {% for fila in archivos %}
+                        {% if fila.0 == arch_sel %}
+                          <option value="{{ fila.0 }}" selected>{{ fila.0 }}</option>
+                        {% else %}
+                          <option value="{{ fila.0 }}">{{ fila.0 }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select><br>
+
+                    <h3 class="mb-0">Seleccionar predictores</h3><br>
+                    <div style="column-count:4; column-gap:10px;">
+                      {% for fila in columns %}
+                          <input class="form-control-alternative" type="checkbox" name="predictores[]" id="predictores" value="{{ fila }}"> {{ fila }}<br>
+                      {% endfor %}
+                    </div>
+                    <br>
+
+                    <h3 class="mb-0">Seleccionar variable objetivo</h3><br>
+                    <select class="form-control" name="var_obj" id="var_obj">
+                      <option value=""></option>
+                      {% for fila in columns %}
+                          <option value="{{ fila }}">{{ fila }}</option>
+                      {% endfor %}
+                    </select><br>
+
+                    <h3 class="mb-0">Seleccionar algoritmo de Machine Learning</h3><br>
+                    <select class="form-control" name="alg_sel" id="alg_sel">
+                      <option value=""></option>
+                      {% for fila in algoritmos %}
+                        {% if fila.0 == alg_sel %}
+                          <option value="{{ fila.0 }}" selected>{{ fila.0 }}</option>
+                        {% else %}
+                          <option value="{{ fila.0 }}">{{ fila.0 }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select><br>
+                    <input type="submit" id="btn_ranalisis" class="btn btn-primary col-xl-12" value="Realizar análisis">
+                    <!-- <br><br>
+                    <div id="validar-algoritmo" class="alert alert-danger d-none" role="alert" style="text-align: center">
+                      El algoritmo no esta disponible
+                    </div> -->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+      
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.36/dist/sweetalert2.all.min.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script type="text/javascript">
+  function validateForm() {
+    // console.log($("input[name='predictores[]']:checked").length)
+    if($('#arch_sel').val() == "") {
+      Swal.fire({
+          icon: 'info',
+          text: 'Por favor seleccione el archivo',
+        });
+      return false;
+    }
+    else if($("input[name='predictores[]']:checked").length == 0) {
+      Swal.fire({
+          icon: 'info',
+          text: 'Por favor seleccione los predictores',
+        });
+      return false;
+    }
+    else if($("input[name='predictores[]']:checked").length > 0 && $('#var_obj').val() != '') {
+      pred = $("input[name='predictores[]']:checked").map(function() {
+              return $(this).val();
+            }).get();
+      b = false
+      for(i=0; i<pred.length; i++) {
+        if(pred[i] == $('#var_obj').val())
+          b = true
+      }
+      if(b == true) {
+        Swal.fire({
+            icon: 'info',
+            text: 'La variable objetivo no debería ser uno de los predictores',
+          });
+        return false;
+      }
+      else if($('#alg_sel').val() == "") {
+        Swal.fire({
+            icon: 'info',
+            text: 'Por favor seleccione el algoritmo',
+          });
+        return false;
+      }
+    }
+    else if($('#var_obj').val() == "") {
+      Swal.fire({
+          icon: 'info',
+          text: 'Por favor seleccione la variable objetivo',
+        });
+      return false;
+    }
+    else if($('#alg_sel').val() == "") {
+      Swal.fire({
+          icon: 'info',
+          text: 'Por favor seleccione el algoritmo',
+        });
+      return false;
+    }
+  }
+
+  //Ocultar y mostrar div_resultados
+  $(document).ready(function() {
+    
+  });
+  
+</script>
+
+{% endblock javascripts %}
